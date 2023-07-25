@@ -21,10 +21,14 @@ class Options(
     fun inputCheck(): IntArray {// 옵션선택결과를 입력받아 반환
         if (isMulti) {
             check@ while (true) {
-                val input = readLine()!!.split(" ")
-                if (!isEssential && input.size == 1 && input[0].toIntOrNull() == 0) return IntArray(0)
+                val input = readLine()!!.split(" ").map { it.toIntOrNull() }
+                if (!isEssential && input.size == 1 && input[0] == 0) return IntArray(0)
+                if (input.size != input.toSet().size) {
+                    println("중복된 값이 있습니다. 값을 다시 확인해주세요!")
+                    continue
+                }
                 for (i in input) {
-                    when (i.toIntOrNull()) {
+                    when (i) {
                         null, 0 -> {
                             println("입력이 양식에 맞지않습니다 값을 다시 확인해주세요!")
                             continue@check
@@ -37,7 +41,7 @@ class Options(
                         }
                     }
                 }
-                return input.map { it.toInt() - 1 }.toIntArray()
+                return input.map { it!!.toInt() - 1 }.toIntArray()
             }
         } else {
             while (true) {

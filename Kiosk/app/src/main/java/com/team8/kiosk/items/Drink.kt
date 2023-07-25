@@ -21,6 +21,10 @@ data class Drink(
         TODO("Not yet implemented")
     }
 
+    override fun getInstance(): Item {
+        return Drink(name, price)
+    }
+
     override fun toString(): String { //메뉴 출력시 객체자체만 출력했을경우 어떻게 보여줄지 도와줌
         return super.toString()
     }

@@ -1,9 +1,8 @@
 package com.team8.kiosk
 
-//사용자관련 전채적인 정보와 기능
 class User(
     val name: String, // 사용자 이름
-    private var remainMoney: Int, // 남은 돈
+    var remainMoney: Int, // 남은 돈
 ) {
     private val carts: MutableList<Cart> = mutableListOf() // 장바구니
 
@@ -25,5 +24,8 @@ class User(
 
     fun updateCart(index: Int) { // 카드 수정
 
+    }
+    fun remainingMoney(): Int {  //추가함..ㅠㅠ..(진주)
+        return remainMoney
     }
 }

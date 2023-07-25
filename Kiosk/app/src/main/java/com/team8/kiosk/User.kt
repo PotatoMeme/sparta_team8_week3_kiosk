@@ -44,7 +44,7 @@ class User(
             } MENU ]"
         )
         Menu.menuArr[menuIndex].forEachIndexed { index, item ->
-            println("${index + 1}. ${item.name} / ${item.price.toPriceFormat()}원")
+            println("${index + 1}. $item")
         }
         println("0. 뒤로가기")
         while (true) {
@@ -55,7 +55,7 @@ class User(
                     val itemIndex: Int = num - 1
                     val currentSide = Menu.menuArr[menuIndex][itemIndex].getInstance()
                     currentSide.showOptionsArr()
-                    currentSide.getCurrentState()
+                    println(currentSide.getCurrentState())
                     println(
                         "해당 ${
                             when (menuIndex) {
@@ -91,7 +91,7 @@ class User(
                 in 1..carts.size -> {
                     val cartIndex: Int = num - 1
                     while (true) {
-                        println("어떤것을 변경하시겠습니까")
+                        println("원하는 기능을 선택해주세요")
                         println("[0] 옵션 변경 / [1] 수량 변경 / [2] 장바구니 삭제 / [3] 취소")
                         when (readLine()!!.toIntOrNull()) {
                             null -> println("입력이 양식에 맞지않습니다 값을 다시 확인해주세요!")//스마트캐스팅용

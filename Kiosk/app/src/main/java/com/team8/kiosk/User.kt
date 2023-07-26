@@ -91,6 +91,7 @@ class User(
                 in 1..carts.size -> {
                     val cartIndex: Int = num - 1
                     while (true) {
+                        println("현재 선택 항목 : $num ${carts[cartIndex].item}")
                         println("원하는 기능을 선택해주세요")
                         println("[0] 옵션 변경 / [1] 수량 변경 / [2] 장바구니 삭제 / [3] 취소")
                         when (readLine()!!.toIntOrNull()) {

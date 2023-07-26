@@ -1,17 +1,23 @@
 package com.team8.kiosk
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+import com.team8.kiosk.utils.Util.getCurrentTime
+import com.team8.kiosk.utils.Util.getCurrentWithDate
 import com.team8.kiosk.utils.Util.toPriceFormat
 
 //사용자관련 전채적인 정보와 기능
 class User(
     val name: String, // 사용자 이름
-    private var remainMoney: Int, // 남은 돈
+    private var remainMoney: Int,// 남은 돈
+    private val purchaseToSend: (User) -> Unit,
 ) {
     private val carts: MutableList<Cart> = mutableListOf() // 장바구니
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun shopping() { // 쇼핑하기 로직
         //환영인사
-        println("안녕하세요. 맥도날드입니다. 무었을 도와드릴까요?")
+        println("${name}님 안녕하세요.  맥도날드입니다. 무었을 도와드릴까요?")
         while (true) {
             println("이중 원하시는 기능을 선택해주세요!")
             println("[0] 버거선택 / [1] 드링크 선택 / [2] 사이드 선택 / [3] 상태보기 및 수정 / [4] 결제 / [5] 충전 / [6] 취소 ")
@@ -149,6 +155,7 @@ class User(
         return sum
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun selectPurchase() {
         if (carts.size == 0) {
             println("현재 장바구니가 비어있습니다.")
@@ -157,6 +164,16 @@ class User(
         val price = showCurrentCart()
         println("결제하시겠습니까? [y]")
         if (readLine() == "y") {
+            val currentTime = getCurrentTime()
+            val (hour, minute) = currentTime.split(":")
+            if (hour == "00" && minute.toInt() in 0..30) {
+                println(
+                    "현재 시각은 오후${hour}시 ${minute}분입니다. \n" +
+                            "서버 점검 시간은 오전00시 00분 ~ 오전 00시 30분이므로 결제할 수 없습니다."
+                )
+                return
+            }
+
             if (remainMoney < price) {
                 println("돈이부족하여 결제를 진행할수 없습니다.")
                 println("현재돈 : ${remainMoney.toPriceFormat()}원")
@@ -164,10 +181,13 @@ class User(
             } else {
                 println("결제를 진행합니다.")
                 remainMoney -= price
+                println("결제를 완료하였습니다. (${getCurrentWithDate()})")
                 println("남은 돈 : ${remainMoney.toPriceFormat()}원")
+                purchaseToSend(this)
             }
         }
     }
+
 
     private fun selectFill() {
         println("현재돈 : ${remainMoney.toPriceFormat()}원")

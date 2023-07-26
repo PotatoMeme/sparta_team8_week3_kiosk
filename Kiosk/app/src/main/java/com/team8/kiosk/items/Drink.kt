@@ -58,7 +58,7 @@ data class Drink(
                             .append("] /")
                     }
                 }
-                if (count > 1) deleteCharAt(this.lastIndex)
+                if (count > 0) deleteCharAt(this.lastIndex)
                 append(')')
             }
         }

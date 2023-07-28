@@ -1,19 +1,19 @@
 package com.team8.kiosk
 
-
 fun main() {
-    println("고객님 이름을 입력해주세요.")
-    val userName = readLine()?: ""
-    println("고객님의 소지금을 입력해주세요.(숫자만 입력해주세요.)")
-    var remainMoney = readLine()?.toIntOrNull() ?: 0
-
-    if (remainMoney<1000){
-    println("죄송합니다 고객님, 소지금으로 살 수 있는 상품이 없습니다.충전하실 금액을 입력해주세요.")
-    var addMoney =  readLine()?.toIntOrNull() ?: 0
-        remainMoney += addMoney
-
-}
-    val user: User = User(userName, remainMoney)
+    println("     888888        888888")
+    println("    88    88      88    88")
+    println("   88      88    88      88")
+    println("  88        888888        88")
+    println(" 888         8888         888")
+    println(" 888          88          888")
+    println(" 888          88          888")
+    println(" 888                      888(R)")
+    println(" ")
+    println("    McDonald's Restaurant    ")
+    println("                    i'm lovin'it")
+    println(" ")
+    val user: User = User("testUser", 1_000_000)
     user.shopping()
 
-}
+    }

@@ -12,8 +12,12 @@ data class Cart(
         count = value
     }
 
+    fun getItemCount() : Int { //상품의 개수를 수정할때 사용
+        return count
+    }
+
     fun getCurrentPrice(): Int { // 현재 단일카트의 총가격을 반환
-        return 0
+        return item.getCurrentPrice() * count
     }
 
 }
